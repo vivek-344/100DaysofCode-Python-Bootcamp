@@ -1,0 +1,5 @@
+city = input("What's your birth place?\n")
+pet = input("What's your pet's name?\n")
+length = str(len(city)+len(pet)+1)
+print("Your band name can be: "+city+" "+pet+".")
+print("It is of "+str(len(city)+len(pet)+1)+" characters")
