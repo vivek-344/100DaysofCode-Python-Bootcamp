@@ -9,6 +9,10 @@ def turn_right():
     turn_left()
 
 
+while front_is_clear():
+    move()
+turn_left()
+
 while not at_goal():
     if right_is_clear():
         turn_right()
@@ -18,6 +22,7 @@ while not at_goal():
     else:
         turn_left()
 """
+
 
 # Reeborg follow along the right edge of the maze,
 # turning right if it can, going straight ahead
