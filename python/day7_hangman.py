@@ -1,4 +1,5 @@
-import random
+import random, os
+
 
 from day7_hangman_words import words
 from day7_hangman_art import logo
@@ -21,20 +22,21 @@ print(logo)
 
 while lives != 0 and '_' in answer:
     ch = input("Guess a letter: ").strip().lower()
+
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
+
     if ch not in letters:
-        print("Invalid input..", end=" ")
-        continue
+        print("Invalid input..")
     elif ch[0] in answer:
-        print("\n")
         print(f"You already guessed {ch[0]}")
-        continue
     elif ch[0] in random_word:
-        print("\n")
         for i in range(0, len(answer)):
             if random_word[i] == ch:
                 answer[i] = ch
     else:
-        print("\n")
         lives -= 1
         print("You lost a life.")
     for ch in answer:
