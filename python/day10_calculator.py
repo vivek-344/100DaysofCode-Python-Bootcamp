@@ -34,8 +34,8 @@ operations = {
   "/": divide
 }
 
-repeat = 'n'
-while repeat == 'n':
+
+def calculator():
     repeat = 'y'
     num1 = float(input("What's the first number?: "))
     print("+\n-\n*\n/")
@@ -50,6 +50,9 @@ while repeat == 'n':
         repeat = input(f"Type 'y' to continue calculating with {result}, or type 'n' to start a new calculation: ")
         if repeat == 'n':
             clear_screen()
+            calculator()
 
+
+calculator()
 print("\nInvalid Input.")
 print("Thank you for using our Calculator.")
