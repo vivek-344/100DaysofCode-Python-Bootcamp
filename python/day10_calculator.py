@@ -1,8 +1,6 @@
 import os
 from day10_calculator_art import logo
 
-print(logo)
-
 
 def clear_screen():
     if os.name == 'nt':
@@ -36,6 +34,7 @@ operations = {
 
 
 def calculator():
+    print(logo)
     repeat = 'y'
     num1 = float(input("What's the first number?: "))
     print("+\n-\n*\n/")
