@@ -35,7 +35,7 @@ scissors = '''
 options = [rock, paper, scissors]
 
 choice = int(input("What do you choose? Type 0 for Rock, 1 for Paper or 2 for Scissors.\n"))
-if input != 0 or input != 1 or input != 2:
+if choice not in [0, 1, 2]:
     print("Invalid input. You lose")
 else:
     print(options[choice])
