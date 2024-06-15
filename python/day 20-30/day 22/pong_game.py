@@ -1,8 +1,12 @@
 from pong_screen import Display
 from pong_paddle import Paddle
+from pong_ball import Ball
 
 display = Display()
 paddle = Paddle()
+ball = Ball(paddle.paddle1, paddle.paddle2)
+
+paddle.assign_ball(ball)
 
 key_mappings = ["w", "s", "Up", "Down"]
 
@@ -14,3 +18,4 @@ for key in key_mappings:
 while True:
     paddle.update_paddles()
     display.update_screen()
+    ball.move()

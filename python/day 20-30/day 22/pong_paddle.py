@@ -17,6 +17,11 @@ class Paddle:
             "Down": False
         }
 
+        self.ball = None
+
+    def assign_ball(self, ball):
+        self.ball = ball
+
     @staticmethod
     def create_paddle(x):
         t = turtle.Turtle("square")
@@ -46,9 +51,12 @@ class Paddle:
     def handle_keyrelease(self, key):
         self.is_pressed[key] = False
 
-    @staticmethod
-    def move_paddle(paddle, direction):
+    def move_paddle(self, paddle, direction):
         if direction == "up" and paddle.ycor() < 285:
             paddle.fd(16)
         elif direction == "down" and paddle.ycor() > -285:
             paddle.bk(16)
+        if paddle == self.paddle1:
+            self.ball.bk(0.01)
+        else:
+            self.ball.fd(0.01)
