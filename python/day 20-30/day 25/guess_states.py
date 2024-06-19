@@ -1,4 +1,5 @@
-import turtle, pandas
+import turtle
+import pandas
 
 screen = turtle.Screen()
 screen.title("U.S. States Game")
