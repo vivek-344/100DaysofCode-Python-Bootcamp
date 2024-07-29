@@ -10,14 +10,14 @@ app = Flask(__name__)
 def home():
     posts = requests.get("https://api.npoint.io/58953a10e49990b48467").json()
     year = datetime.datetime.now().year
-    return render_template("index.html", year=year, posts=posts, start=0, end=5)
+    return render_template("index.html", year=year, posts=posts, start=None, end=len(posts)-6)
 
 
 @app.route('/older_posts')
 def older():
     posts = requests.get("https://api.npoint.io/58953a10e49990b48467").json()
     year = datetime.datetime.now().year
-    return render_template("index.html", year=year, posts=posts, start=5, end=None)
+    return render_template("index.html", year=year, posts=posts, start=len(posts)-6, end=None)
 
 
 @app.route("/blog/<int:post_id>")
