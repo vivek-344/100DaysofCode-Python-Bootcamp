@@ -31,13 +31,13 @@
 
     const e = (t, e = document.body) => {
         const n = [].slice.call(e.querySelectorAll(t));
-        if (0 === n.length) throw new Error(`GET_ELEMENTS: ${e.id} -> ${t}`);
+        if (0 === n.length) throw new Error(GET_ELEMENTS: ${e.id} -> ${t});
         return n;
     };
 
     const n = (t, e = document.body) => {
         const n = e.querySelector(t);
-        if (!n) throw new Error(`GET_ELEMENT: ${e.id} -> ${t}`);
+        if (!n) throw new Error(GET_ELEMENT: ${e.id} -> ${t});
         return n;
     };
 
@@ -127,7 +127,7 @@
         r = (t, i) => {
             let s, r, c = !0;
             if (a(t) && (r = t.parentElement.parentElement), "object" == typeof i) {
-                if (c = i.validate(), s = n(`[data-sb-feedback="${t.id}:${i.name}"]`), !s) throw new Error(`VALIDATION_NOT_SETUP_FOR: ${t.id}:${i.name}`);
+                if (c = i.validate(), s = n([data-sb-feedback="${t.id}:${i.name}"]), !s) throw new Error(VALIDATION_NOT_SETUP_FOR: ${t.id}:${i.name});
             } else {
                 switch (i) {
                     case "required":
@@ -146,27 +146,42 @@
                         c = t.checked;
                 }
                 if (a(t)) try {
-                    s = n(`[data-sb-feedback="${t.name}:${i}"]`);
+                    s = n([data-sb-feedback="${t.name}:${i}"]);
                 } catch (e) {
-                    throw new Error(`VALIDATION_NOT_SETUP_FOR: ${t.name}:${i}`);
+                    throw new Error(VALIDATION_NOT_SETUP_FOR: ${t.name}:${i});
                 } else try {
-                    s = n(`[data-sb-feedback="${t.id}:${i}"]`);
+                    s = n([data-sb-feedback="${t.id}:${i}"]);
                 } catch (e) {
-                    throw new Error(`VALIDATION_NOT_SETUP_FOR: ${t.id}:${i}`);
+                    throw new Error(VALIDATION_NOT_SETUP_FOR: ${t.id}:${i});
                 }
             }
             return c ? s.classList.add("d-none") : s.classList.remove("d-none"), c;
         },
         o = t => t && /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(t),
-        isPhone = t => t && /^\+?[1-9]\d{1,14}(\s|-|\d)*$/.test(t),
-        d = t => t && t.length >= 5,
+        isPhone = t => t && /^\+?[1-9]\d{7,14}(\s|-|\d)*$/.test(t),
+        d = t => t && t.length >= 20,
         c = () => {
             const t = document.getElementById("contactForm");
-            new s(n("#name", t), [i.required], () => {}).initValidation();
-            new s(n("#email", t), [i.required, i.email], () => {}).initValidation();
-            new s(n("#phone", t), [i.required, i.phone], () => {}).initValidation();
-            new s(n("#message", t), [i.required, i.length], () => {}).initValidation();
+            const nameField = new s(n("#name", t), [i.required], checkFormValidity);
+            const emailField = new s(n("#email", t), [i.required, i.email], checkFormValidity);
+            const phoneField = new s(n("#phone", t), [i.required, i.phone], checkFormValidity);
+            const messageField = new s(n("#message", t), [i.required, i.length], checkFormValidity);
+
+            nameField.initValidation();
+            emailField.initValidation();
+            phoneField.initValidation();
+            messageField.initValidation();
         };
+
+    const checkFormValidity = () => {
+        const form = document.getElementById("contactForm");
+        const inputs = e("input", form).concat(e("textarea", form));
+        const allValid = inputs.every(input => input.dataset.sbCanSubmit === "yes");
+        const submitButton = form.querySelector('button[type="submit"]');
+        if (submitButton) {
+            submitButton.disabled = !allValid;
+        }
+    };
 
     document.addEventListener("DOMContentLoaded", () => {
         c();
@@ -187,7 +202,7 @@
                     body: JSON.stringify(jsonData),
                 })
                 .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    if (!response.ok) throw new Error(HTTP error! status: ${response.status});
                     return response.json();
                 })
                 .then(data => {
