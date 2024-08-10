@@ -1,6 +1,7 @@
 (() => {
     "use strict";
 
+    // Promise-based async function wrapper
     var t = function(t, e, n, i) {
         return new(n || (n = Promise))((function(s, a) {
             function r(t) {
@@ -29,18 +30,20 @@
         }))
     };
 
+    // Utility functions to get elements
     const e = (t, e = document.body) => {
         const n = [].slice.call(e.querySelectorAll(t));
-        if (0 === n.length) throw new Error(GET_ELEMENTS: ${e.id} -> ${t});
+        if (0 === n.length) throw new Error(`GET_ELEMENTS: ${e.id} -> ${t}`);
         return n;
     };
 
     const n = (t, e = document.body) => {
         const n = e.querySelector(t);
-        if (!n) throw new Error(GET_ELEMENT: ${e.id} -> ${t});
+        if (!n) throw new Error(`GET_ELEMENT: ${e.id} -> ${t}`);
         return n;
     };
 
+    // Validation types
     var i;
     !function(t) {
         t.required = "required", t.email = "email", t.length = "length", t.checked = "checked", t.phone = "phone";
@@ -66,6 +69,7 @@
         }
 
         inputInput() {
+            // Trigger validation immediately on input
             this._handleInputAction();
         }
 
@@ -127,7 +131,7 @@
         r = (t, i) => {
             let s, r, c = !0;
             if (a(t) && (r = t.parentElement.parentElement), "object" == typeof i) {
-                if (c = i.validate(), s = n([data-sb-feedback="${t.id}:${i.name}"]), !s) throw new Error(VALIDATION_NOT_SETUP_FOR: ${t.id}:${i.name});
+                if (c = i.validate(), s = n(`[data-sb-feedback="${t.id}:${i.name}"]`), !s) throw new Error(`VALIDATION_NOT_SETUP_FOR: ${t.id}:${i.name}`);
             } else {
                 switch (i) {
                     case "required":
@@ -146,13 +150,13 @@
                         c = t.checked;
                 }
                 if (a(t)) try {
-                    s = n([data-sb-feedback="${t.name}:${i}"]);
+                    s = n(`[data-sb-feedback="${t.name}:${i}"]`);
                 } catch (e) {
-                    throw new Error(VALIDATION_NOT_SETUP_FOR: ${t.name}:${i});
+                    throw new Error(`VALIDATION_NOT_SETUP_FOR: ${t.name}:${i}`);
                 } else try {
-                    s = n([data-sb-feedback="${t.id}:${i}"]);
+                    s = n(`[data-sb-feedback="${t.id}:${i}"]`);
                 } catch (e) {
-                    throw new Error(VALIDATION_NOT_SETUP_FOR: ${t.id}:${i});
+                    throw new Error(`VALIDATION_NOT_SETUP_FOR: ${t.id}:${i}`);
                 }
             }
             return c ? s.classList.add("d-none") : s.classList.remove("d-none"), c;
@@ -202,7 +206,7 @@
                     body: JSON.stringify(jsonData),
                 })
                 .then(response => {
-                    if (!response.ok) throw new Error(HTTP error! status: ${response.status});
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     return response.json();
                 })
                 .then(data => {
