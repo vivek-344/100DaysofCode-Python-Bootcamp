@@ -17,7 +17,6 @@ class Ball(Turtle):
         y = self.ycor()
 
         top_edge = 345
-        bottom_edge = -345
         right_edge = 345
         left_edge = -345
 
@@ -27,11 +26,12 @@ class Ball(Turtle):
         if x >= right_edge or x <= left_edge:
             self.right = not self.right
 
-        paddle_left_edge = self.paddle.xcor() - 35
-        paddle_right_edge = self.paddle.xcor() + 35
-        paddle_top_edge = self.paddle.ycor() + 10
+        paddle_left_edge = self.paddle.xcor() - 70
+        paddle_right_edge = self.paddle.xcor() + 70
+        paddle_top_edge = self.paddle.ycor() + 8
+        tolerance = 5
 
-        if paddle_left_edge <= x <= paddle_right_edge and y <= paddle_top_edge:
+        if paddle_left_edge <= x <= paddle_right_edge and paddle_top_edge - tolerance <= y <= paddle_top_edge + tolerance:
             self.up = True
 
         self.sety(y + self.ball_speed if self.up else y - self.ball_speed)
@@ -39,6 +39,7 @@ class Ball(Turtle):
 
         if self.ycor() < self.paddle.ycor() - 50:
             self.sety(0)
+            self.setx(0)
             self.increase_speed()
             self.up = False
 
